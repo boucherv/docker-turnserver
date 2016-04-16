@@ -18,6 +18,7 @@ RUN useradd -g turnserver turnserver
 RUN gdebi -n /tmp/coturn*.deb
 
 RUN mkdir /etc/service/turnserver
+ADD turnserver.conf /etc/turnserver.conf
 ADD turnserver.sh /etc/service/turnserver/run
 
 # Clean up APT when done.

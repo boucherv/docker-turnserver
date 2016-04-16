@@ -14,7 +14,14 @@ if [ -z $PORT ]
 then
     PORT=3478
 fi
-
+if [ -z $PORT_RANGE_MIN ]
+then
+    PORT_RANGE_MIN=49152  
+fi
+if [ -z $PORT_RANGE_MAX ]
+then
+    PORT_RANGE_MAX=49252  
+fi
 if [ ! -e /tmp/turnserver.configured ]
 then
     if [ -z $SKIP_AUTO_IP ]
@@ -22,7 +29,9 @@ then
         echo external-ip=$EXTERNAL_IP > /etc/turnserver.conf
     fi
     echo listening-port=$PORT >> /etc/turnserver.conf
-
+    echo min-port=$PORT_RANGE_MIN >> /etc/turnserver.conf
+    echo max-port=$PORT_RANGE_MAX >> /etc/turnserver.conf
+    echo "user=ouss:test" >> /etc/turnserver.conf
     if [ ! -z $LISTEN_ON_PUBLIC_IP ]
     then
         echo listening-ip=$EXTERNAL_IP >> /etc/turnserver.conf
